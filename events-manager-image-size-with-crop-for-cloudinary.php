@@ -50,7 +50,8 @@ function events_manager_image_for_cloudinary($result, $EM_Event, $event_string) 
                             $cloudinary_attr = 'c_fill,h_'.$image_size[1].',w_'.$image_size[0];
                         }
                         $url_arr = explode('/', $image_url);
-                        array_splice($url_arr, -2, 0, $cloudinary_attr);
+                        $index = array_search('upload', $url_arr); // find where upload is in the URL to add right args after
+                        array_splice($url_arr, $index + 1, 0, $cloudinary_attr);
                         $new_url = implode('/', $url_arr);
                         $result = "<img src='".$new_url."' alt='".$EM_Event->event_name."' $image_attr />";
                     }else{
